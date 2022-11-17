@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stopwatch</title>
+</head>
+<body>
+    <h1>STOPWATCH</h1>
+    <p><span id="hour">00</span> : 
+        <span id="min">00</span> : 
+        <span id="sec">00</span>
+    </p>
+
+    <div class="buttons">
+        <button id="button-start">START</button>
+        <button id="button-stop">STOP</button>
+        <button id="button-reset">RESET</button>
+    </div>
+
+    <script>
+        window.onload=function(){
+            var hour=00;
+            var min=00;
+            var sec=00;
+            var appendhour= document.getElementById("hour")
+            var appendmin= document.getElementById("min");
+            var appendsec= document.getElementById("sec");
+            var buttonStart= document.getElementById("button-start");
+            var buttonStop= document.getElementById("button-stop");
+            var buttonReset= document.getElementById("button-reset")
+            var Interval;
+            buttonStop.disabled=true;
+            buttonReset.disabled=true;
+
+            buttonStart.onclick=function(){
+                buttonStart.disabled=true;
+                buttonStop.disabled=false;
+                buttonReset.disabled=false;
+                clearInterval(Interval);
+                console.log("start");
+                Interval= setInterval(startTimer,1000);
+            }
+
+            buttonStop.onclick= function(){
+                clearInterval(Interval);
+                buttonStart.disabled=false;
+                buttonStop.disabled=true;
+                buttonReset.disabled=false;
+            }
+
+            buttonReset.onclick=function(){
+                clearInterval(Interval);
+                buttonStart.disabled=false;
+                buttonReset.disabled=true;
+                buttonStop.disabled=true;
+
+                hour="00";
+                min="00";
+                sec="00";
+                appendhour.innerHTML=hour;
+                appendmin.innerHTml=min;
+                appendsec.innerHTML=sec;
+            }
+
+            function startTimer(){
+                sec++;
+                console.log(sec);
+                if(sec<=9){
+                    appendsec.innerHTML="0"+ sec;
+                }
+
+                if(sec>9){
+                    appendsec.innerHTML=sec;
+                }
+
+                if(sec>60){
+                    min++;
+                    appendmin.innerHTML="0"+ min;
+                    sec=0;
+                    appendsec.innerHTML="0"+0;
+                }
+
+                if(min>9){
+                    appendmin.innerHTML= min;
+                }
+
+                if(min>60){
+                    hour++;
+                    appendhour.innerHTML="0"+hour;
+                    min=0;
+                    appendmin.innerHTML="0"+0;
+
+                }
+
+                if(hour>9){
+                    appendhour.innerHTML=hour;
+                }
+
+
+            }
+        }
+    </script>   
+
+    
+</body>
+</html>
